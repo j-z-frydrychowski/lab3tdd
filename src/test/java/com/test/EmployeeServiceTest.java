@@ -40,5 +40,71 @@ public class EmployeeServiceTest {
 
         assertEquals(4, employeeService.getEmployees().size());
     }
-    
+
+    @Test
+    public void testSearchEmployeeByEmail_returnsEmployee(){
+        assertNotNull(employeeService.SearchEmployee(jan.getEmail()));
+    }
+
+    @Test
+    public void testSearchEmployeeByPhone_returnsNull(){
+        assertNull(employeeService.SearchEmployee("nieistnieje@mail.com"));
+    }
+
+    @Test
+    public void testSearchEmployeeByCompany_correctSize() {
+        List<Employee> techCorpEmployees = employeeService.SearchEmployeeByCompany("TechCorp");
+
+        assertEquals(2, techCorpEmployees.size());
+    }
+    @Test
+    public void testSearchEmployeeByCompany_returnsEmptyList() {
+        List<Employee> noExistingCompanyEmployees = employeeService.SearchEmployeeByCompany("nieIstnieje");
+
+        assertTrue(noExistingCompanyEmployees.isEmpty());
+    }
+
+    @Test
+    public void testValidateSalaryConsistency_findsUnderpaidEmployee() {
+        employeeService.addEmployee(kris);
+
+        List<Employee> inconsistent = employeeService.validateSalaryConsistency();
+
+        assertEquals(1, inconsistent.size());
+    }
+
+    @Test
+    void testValidateSalaryConsistency_zeroUnderpaid() {
+        List<Employee> inconsistent = employeeService.validateSalaryConsistency();
+
+        assertTrue(inconsistent.isEmpty());
+    }
+
+    @Test
+    void testCompanyStatistics_correctEmployeeCount() {
+        Map<String, CompanyStatistics> stats = employeeService.getCompanyStatistics();
+
+        assertEquals(2, stats.get("TechCorp").getEmployeeCount());
+    }
+
+    @Test
+    void testCompanyStatistics_correctAverageSalary() {
+        Map<String, CompanyStatistics> stats = employeeService.getCompanyStatistics();
+
+        assertEquals(10000.00, stats.get("TechCorp").getAverageSalary());
+    }
+
+    @Test
+    void testCompanyStatistics_correctHighestPaidEmployee() {
+        Map<String, CompanyStatistics> stats = employeeService.getCompanyStatistics();
+
+        assertEquals("Anna Nowak", stats.get("TechCorp").getHighestPaidEmployeeName());
+    }
+
+    @Test
+    void testCompanyStatistics_singleEmployeeCompany_correctHighestPaid() {
+        Map<String, CompanyStatistics> stats = employeeService.getCompanyStatistics();
+
+        assertEquals("Piotr Adamski", stats.get("OtherCo").getHighestPaidEmployeeName());
+    }
 }

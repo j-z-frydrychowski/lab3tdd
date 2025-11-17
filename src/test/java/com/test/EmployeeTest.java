@@ -11,8 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class EmployeeTest {
 
-    private final Position defPosition = Position.getPosition("Programista");
-    private final Employee employee = new Employee("Jan", "Kowalski", "jankowalski@techcorp.pl", "TechCorp", defPosition);
+    private Position defPosition;
+    private Employee employee;
+
+    @BeforeEach
+    void setUp() {
+        defPosition = Position.getPosition("Programista");
+        employee = new Employee("Jan", "Kowalski", "jankowalski@techcorp.pl", "TechCorp", defPosition);
+    }
 
     @Test
     public void testConstructor() {
@@ -54,5 +60,51 @@ public class EmployeeTest {
     public void testGetSalary(){
         assertEquals(defPosition.getSalary(), employee.getSalary());
     }
-    
+
+    @Test
+    public void testSetName(){
+        employee.setName("John");
+
+        assertEquals("John", employee.getName());
+    }
+
+    @Test
+    public void testSetSurname(){
+        employee.setSurname("Nowak");
+
+        assertEquals("Nowak", employee.getSurname());
+    }
+
+    @Test
+    public void testSetEmail(){
+        employee.setEmail("johnnowak@techcorp.pl");
+
+        assertEquals("johnnowak@techcorp.pl", employee.getEmail());
+    }
+
+    @Test
+    public void testSetCompanyName(){
+        employee.setCompanyName("CorpTech");
+
+        assertEquals("CorpTech", employee.getCompanyName());
+    }
+
+    @Test
+    public void testSetJobTitle(){
+        defPosition = Position.getPosition("Manager");
+        employee.setJobTitle(defPosition);
+
+        assertEquals(defPosition, employee.getJobTitle());
+    }
+
+    @Test
+    public void testSetSalary(){
+        employee.setSalary(1000);
+        assertEquals(1000, employee.getSalary());
+    }
+
+    @Test
+    public void testSetSalaryThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> employee.setSalary(-1));
+    }
 }

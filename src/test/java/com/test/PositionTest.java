@@ -70,4 +70,9 @@ public class PositionTest {
     public void testGetPositionNameCamelCase(){
         assertEquals(Position.PROGRAMISTA, Position.getPosition("Programista"));
     }
+
+    @Test
+    void testGetPosition_invalidPosition_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> Position.getPosition("NIEISTNIEJE"));
+    }
 }

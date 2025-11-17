@@ -83,6 +83,11 @@ public class EmployeeTest {
     }
 
     @Test
+    public void testSetEmailIsNull(){
+        assertThrows(IllegalArgumentException.class,() -> employee.setEmail(null));
+    }
+
+    @Test
     public void testSetCompanyName(){
         employee.setCompanyName("CorpTech");
 
@@ -106,5 +111,39 @@ public class EmployeeTest {
     @Test
     public void testSetSalaryThrowsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> employee.setSalary(-1));
+    }
+
+    @Test
+    public void testEqualsSameObject(){
+        assertEquals(employee, employee);
+    }
+
+    @Test
+    public void testEqualsSameEmail(){
+        Employee newEmployee = new Employee();
+        newEmployee.setEmail("jankowalski@techcorp.pl");
+        assertEquals(employee, newEmployee);
+    }
+    @Test
+    public void testEqualsDifferentEmail(){
+        Employee newEmployee = new Employee("Jan", "Kowalski", "jankowalski1@techcorp.pl", "TechCorp", defPosition);
+        assertNotEquals(employee, newEmployee);
+    }
+
+    @Test
+    public void testEqualsNull(){
+        assertNotEquals(null, employee);
+    }
+
+    @Test
+    public void testHashCodeSameEmail(){
+        Employee newEmployee = new Employee();
+        newEmployee.setEmail("jankowalski@techcorp.pl");
+        assertEquals(employee.hashCode(), newEmployee.hashCode());
+    }
+
+    @Test
+    public void testToString(){
+        assertEquals("Imie: Jan\nSurname: Kowalski\nEmail: jankowalski@techcorp.pl\nCompany: TechCorp\nJob title: Programista\nSalary: 8000.0\n", employee.toString());
     }
 }

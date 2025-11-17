@@ -55,4 +55,19 @@ public class PositionTest {
     public void testPositionStazystaSalary() {
         assertEquals(3000, Position.STAZYSTA.getSalary());
     }
+
+    @Test
+    public void testGetPositionLowerCase(){
+        assertEquals(Position.PROGRAMISTA, Position.getPosition("programista"));
+    }
+
+    @Test
+    public void testGetPositionUpperCase(){
+        assertEquals(Position.PROGRAMISTA, Position.getPosition("PROGRAMISTA"));
+    }
+
+    @Test
+    public void testGetPositionNameCamelCase(){
+        assertEquals(Position.PROGRAMISTA, Position.getPosition("Programista"));
+    }
 }

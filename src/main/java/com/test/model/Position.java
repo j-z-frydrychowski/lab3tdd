@@ -19,7 +19,7 @@ public enum Position {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public static Position getPosition(String name){

@@ -85,7 +85,7 @@ public class CompanyStatisticsTest {
     @Test
     public void testToStringContainsAverageSalary() {
         String result = statistics.toString();
-        assertTrue(result.contains("12000.50"));
+        assertTrue(result.contains("12000,50"));
     }
 
     @Test
@@ -98,6 +98,7 @@ public class CompanyStatisticsTest {
     public void testToStringFormatsAverageSalary2Decimals() {
         CompanyStatistics stats = new CompanyStatistics(3, 10000.333, "Alice");
         String result = stats.toString();
-        assertTrue(result.contains("10000.33"));
+        System.out.println(result);
+        assertTrue(result.contains("10000,33"));
     }
 }

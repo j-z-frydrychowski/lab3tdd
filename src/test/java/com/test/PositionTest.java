@@ -75,4 +75,11 @@ public class PositionTest {
     void testGetPosition_invalidPosition_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> Position.getPosition("NIEISTNIEJE"));
     }
+
+    @Test
+    public void testGetPositionWithNull() {
+        assertThrows(NullPointerException.class, () -> {
+            Position.getPosition(null);
+        });
+    }
 }
